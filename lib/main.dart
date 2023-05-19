@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:study_app/bindings/initial_bindings.dart';
+import 'package:study_app/controllers/theme_controller.dart';
 import 'package:study_app/routes/app_routes.dart';
 
 void main() {
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: Get.find<ThemeController>().lightTheme,
       getPages: AppRoutes.routes(),
     );
   }
