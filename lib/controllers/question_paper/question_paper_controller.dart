@@ -12,7 +12,7 @@ class QuestionPaperController extends GetxController {
   final allPaperImages = <String>[].obs;
 
   Future<void> getAllPapers() async {
-    List<String> imgName = ["biology", "chemistry", "math", "physics"];
+    List<String> imgName = ["biology", "chemistry", "maths", "physics"];
 
     try {
       for (var img in imgName) {
