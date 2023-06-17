@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:get/get.dart';
 import 'package:study_app/configs/themes/app_colors.dart';
 import 'package:study_app/configs/themes/ui_parameters.dart';
 
@@ -31,11 +31,76 @@ class MenuScreen extends GetView<MyZoomDrawerController> {
                     onPressed: () {
                       controller.toogleDrawer();
                     },
-                  ))
+                  )),
+              Padding(
+                padding: EdgeInsets.only(
+                    right: MediaQuery.of(context).size.width * 0.3),
+                child: Column(
+                  children: [
+                    Obx(
+                      () => controller.user.value == null
+                          ? const SizedBox()
+                          : Text(
+                              controller.user.value!.displayName ?? '',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 18,
+                                  color: onSurfaceTextColor),
+                            ),
+                    ),
+                    const Spacer(flex: 1),
+                    _DrawerButton(
+                        icon: Icons.web,
+                        label: "website",
+                        onPressed: () => controller.webSite()),
+                    _DrawerButton(
+                        icon: Icons.facebook,
+                        label: "facebook",
+                        onPressed: () => controller.facebook()),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: _DrawerButton(
+                          icon: Icons.email,
+                          label: "email",
+                          onPressed: () => controller.email()),
+                    ),
+                    const Spacer(flex: 4),
+                    _DrawerButton(
+                        icon: Icons.logout,
+                        label: "logout",
+                        onPressed: () => controller.signOut()),
+                  ],
+                ),
+              )
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _DrawerButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onPressed;
+
+  const _DrawerButton(
+      {Key? key,
+      required this.icon,
+      required this.label,
+      required this.onPressed})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton.icon(
+      onPressed: onPressed,
+      icon: Icon(
+        icon,
+        size: 15,
+      ),
+      label: Text(label),
     );
   }
 }

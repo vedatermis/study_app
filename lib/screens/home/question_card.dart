@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:study_app/configs/themes/app_icons.dart';
 import 'package:study_app/configs/themes/custom_text_styles.dart';
 import 'package:study_app/configs/themes/ui_parameters.dart';
 import 'package:study_app/controllers/question_paper/question_paper_controller.dart';
@@ -117,7 +116,7 @@ class QuestionCard extends GetView<QuestionPaperController> {
                           bottomRight: Radius.circular(cardBorderRadius)),
                       color: Theme.of(context).primaryColor,
                     ),
-                    child: const Icon(AppIcons.trophyOutline),
+                    child: const Icon(Icons.wine_bar),
                   ),
                 ),
               )

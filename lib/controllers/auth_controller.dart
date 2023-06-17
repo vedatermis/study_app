@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:study_app/firebase_ref/references.dart';
+import 'package:study_app/screens/home/home_screen.dart';
+import 'package:study_app/screens/login/login_screen.dart';
 import 'package:study_app/widgets/dialogs/dialog_widget.dart';
 
 class AuthController extends GetxController {
@@ -40,10 +42,16 @@ class AuthController extends GetxController {
 
         await _auth.signInWithCredential(credential);
         await saveUser(account);
+        navigateToHomePage();
       }
     } on Exception catch (error) {
       print(error);
     }
+  }
+
+  User? getUser() {
+    _user.value = _auth.currentUser;
+    return _user.value;
   }
 
   saveUser(GoogleSignInAccount account) async {
@@ -54,15 +62,32 @@ class AuthController extends GetxController {
     });
   }
 
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+      navigateToHomePage();
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+    }
+  }
+
   void navigateToIntroduction() {
     Get.offAllNamed("/introduction");
+  }
+
+  void navigateToHomePage() {
+    Get.offAllNamed(HomeScreen.routeName);
   }
 
   void showLoginAlertDialog() {
     Get.dialog(Dialogs.questionStartDialog(onTap: () {
       Get.back();
-      //Navigate to login page
+      navigateToLoginPage();
     }), barrierDismissible: false);
+  }
+
+  void navigateToLoginPage() {
+    Get.toNamed(LoginScreen.routeName);
   }
 
   bool isLoggedIn() {
